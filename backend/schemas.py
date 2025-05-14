@@ -14,11 +14,13 @@ class ChatResponse(BaseModel):
     message: Message
 
 class SessionCreate(BaseModel):
-    title: str                              
+    title: str = Field(..., min_length=3, max_length=30
+                       ,description="Title must be between 3 and 30 characters long"
+                       )                             
 
 class SessionOut(SessionCreate):
     id: int
-    created_at: str
+    created_at: Optional[str]
 
 class MessageCreate(BaseModel):
     content: str

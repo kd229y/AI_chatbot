@@ -8,7 +8,7 @@ class Session(Base):
     __tablename__ = "sessions"
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(30), nullable=False)
-    created_at = Column(DateTime, default=datetime.now(datetime.timezone.utc))
+    created_at = Column(String(30), default=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"))
     messages = relationship("Message", back_populates="session")
 
 class Message(Base):
