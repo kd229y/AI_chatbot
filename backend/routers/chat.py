@@ -35,6 +35,25 @@ def chat_endpoint(payload: ChatRequest, session_id: Optional[int] = Query(None),
         "role": "assistant",
         "content": "This is a mock response from the Ollama API."
     }
+
+    for msg in payload.messages:
+        db_message = Message(
+            session_id=session_id,
+            role=msg.role,
+            content=msg.content
+        )
+        db.add(db_message)
+
+    # ✅ 將 AI 回覆也寫入資料庫
+    db_reply = Message(
+        session_id=session_id,
+        role=reply["role"],
+        content=reply["content"]
+    )
+    db.add(db_reply)
+
+    db.commit()
+    
     if not reply:
         raise HTTPException(status_code=500, detail="Ollama response missing message")
     
