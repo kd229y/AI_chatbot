@@ -28,6 +28,7 @@ def chat_endpoint(payload: ChatRequest, session_id: Optional[int] = Query(None),
     '''reply = requests.post(OLLAMA_API, json={
         "model": model,
         "messages": messages
+        "stream": True
     })
     ollama_data = reply.json()
     reply = ollama_data.get("message")'''
@@ -44,7 +45,6 @@ def chat_endpoint(payload: ChatRequest, session_id: Optional[int] = Query(None),
         )
         db.add(db_message)
 
-    # ✅ 將 AI 回覆也寫入資料庫
     db_reply = Message(
         session_id=session_id,
         role=reply["role"],
