@@ -128,7 +128,7 @@ async function sendMessage() {
 
   // 呼叫後端
   const res = await axios.post(`http://127.0.0.1:8000/chat?session_id=${currentSessionId.value}`, {
-    model: 'ollama2',
+    model: 'llama3.2',
     messages: [{ role: 'user', content: userInput.value }]
   })
   const reply = res.data.message
